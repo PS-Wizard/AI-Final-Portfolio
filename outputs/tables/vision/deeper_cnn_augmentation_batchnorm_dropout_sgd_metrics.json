@@ -1,0 +1,17 @@
+{
+  "accuracy": 0.415767639875412,
+  "test_loss": 1.4695419073104858,
+  "macro_precision": 0.08315352697095436,
+  "macro_recall": 0.2,
+  "macro_f1": 0.11746776084407973,
+  "weighted_f1": 0.24419646548914498,
+  "misclassified_samples": 1408,
+  "experiment_name": "deeper_cnn_augmentation_batchnorm_dropout_sgd",
+  "epochs_trained": 7,
+  "training_time_seconds": 241.50098462799906,
+  "trainable_parameters": 8718245,
+  "non_trainable_parameters": 896,
+  "optimizer": "SGD",
+  "learning_rate": 0.009999999776482582,
+  "model_path": "/home/wizard/Projects/school/AI/submissions/submission_v2/outputs/models/vision/deeper_cnn_augmentation_batchnorm_dropout_sgd.keras"
+}

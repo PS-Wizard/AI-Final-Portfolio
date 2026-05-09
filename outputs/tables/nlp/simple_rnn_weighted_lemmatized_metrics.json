@@ -1,0 +1,13 @@
+{
+  "experiment_name": "simple_rnn_weighted_lemmatized",
+  "accuracy": 0.8103691749041759,
+  "macro_precision": 0.6433469121139986,
+  "macro_recall": 0.7540420242917604,
+  "macro_f1": 0.6701768272910881,
+  "weighted_f1": 0.835792851482058,
+  "misclassified_samples": 940,
+  "epochs_trained": 4,
+  "training_time_seconds": 25.193455307002296,
+  "trainable_parameters": 2574531,
+  "non_trainable_parameters": 0
+}

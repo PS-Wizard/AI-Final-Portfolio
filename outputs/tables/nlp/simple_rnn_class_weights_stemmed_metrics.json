@@ -1,0 +1,13 @@
+{
+  "experiment_name": "simple_rnn_class_weights_stemmed",
+  "accuracy": 0.8127899939479524,
+  "macro_precision": 0.6318622776387257,
+  "macro_recall": 0.7303111393126763,
+  "macro_f1": 0.6587745751069005,
+  "weighted_f1": 0.8364830689271052,
+  "misclassified_samples": 928,
+  "epochs_trained": 4,
+  "training_time_seconds": 27.40585514400118,
+  "trainable_parameters": 2574531,
+  "non_trainable_parameters": 0
+}

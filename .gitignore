@@ -1,0 +1,17 @@
+# Python/runtime noise
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# Large generated model weights
+outputs/models/
+*.keras
+*.h5
+*.weights.h5
+
+# Local editor/system files
+.DS_Store
+*.swp
+*.swo

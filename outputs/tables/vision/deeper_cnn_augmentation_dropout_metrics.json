@@ -1,0 +1,17 @@
+{
+  "accuracy": 0.9983402490615845,
+  "test_loss": 0.0052239843644201756,
+  "macro_precision": 0.9978147775957167,
+  "macro_recall": 0.9975383849873914,
+  "macro_f1": 0.997675654265441,
+  "weighted_f1": 0.9983393424246108,
+  "misclassified_samples": 4,
+  "experiment_name": "deeper_cnn_augmentation_dropout",
+  "epochs_trained": 15,
+  "training_time_seconds": 315.3264956310013,
+  "trainable_parameters": 8717349,
+  "non_trainable_parameters": 0,
+  "optimizer": "Adam",
+  "learning_rate": 0.0010000000474974513,
+  "model_path": "/home/wizard/Projects/school/AI/submissions/submission_v2/outputs/models/vision/deeper_cnn_augmentation_dropout.keras"
+}

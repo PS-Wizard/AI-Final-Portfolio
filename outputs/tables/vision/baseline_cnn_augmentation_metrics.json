@@ -1,0 +1,17 @@
+{
+  "accuracy": 0.996680498123169,
+  "test_loss": 0.012843345291912556,
+  "macro_precision": 0.9947393481941308,
+  "macro_recall": 0.9957381939417868,
+  "macro_f1": 0.9951998328030222,
+  "weighted_f1": 0.9966823223481667,
+  "misclassified_samples": 8,
+  "experiment_name": "baseline_cnn_augmentation",
+  "epochs_trained": 14,
+  "training_time_seconds": 145.21544968699982,
+  "trainable_parameters": 8523589,
+  "non_trainable_parameters": 0,
+  "optimizer": "Adam",
+  "learning_rate": 0.0010000000474974513,
+  "model_path": "/home/wizard/Projects/school/AI/submissions/submission_v2/outputs/models/vision/baseline_cnn_augmentation.keras"
+}

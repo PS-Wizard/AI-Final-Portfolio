@@ -1,0 +1,13 @@
+{
+  "experiment_name": "lstm_glove_wiki_50_small_regularized_weighted_lemmatized",
+  "accuracy": 0.8339721605809965,
+  "macro_precision": 0.6821917940158583,
+  "macro_recall": 0.8228404587327521,
+  "macro_f1": 0.7154633385239166,
+  "weighted_f1": 0.8578912551236434,
+  "misclassified_samples": 823,
+  "epochs_trained": 9,
+  "training_time_seconds": 104.72055241999988,
+  "trainable_parameters": 1011203,
+  "non_trainable_parameters": 0
+}

@@ -1,0 +1,15 @@
+direction: right
+
+input: "Input image\n224×224×3" { shape: rectangle }
+prep: "MobileNetV2\npreprocess_input" { shape: rectangle }
+base: "MobileNetV2 backbone\nImageNet pretrained" { shape: rectangle }
+freeze: "Feature extraction\nbase frozen" { shape: rectangle }
+finetune: "Fine-tuning\nupper layers trainable\nBatchNorm frozen" { shape: rectangle }
+gap: "GlobalAveragePooling2D" { shape: rectangle }
+head: "Classifier head\nDense 256 + Dropout" { shape: rectangle }
+out: "Softmax\n5 classes" { shape: rectangle }
+
+input -> prep -> base
+base -> freeze -> gap
+base -> finetune -> gap
+gap -> head -> out

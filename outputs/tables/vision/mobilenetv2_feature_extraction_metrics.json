@@ -1,0 +1,17 @@
+{
+  "accuracy": 0.9950207471847534,
+  "test_loss": 0.015033900737762451,
+  "macro_precision": 0.9918709987822834,
+  "macro_recall": 0.9908447263228141,
+  "macro_f1": 0.9912504475639216,
+  "weighted_f1": 0.9950097406013897,
+  "misclassified_samples": 12,
+  "experiment_name": "mobilenetv2_feature_extraction",
+  "epochs_trained": 10,
+  "training_time_seconds": 231.1247252080011,
+  "trainable_parameters": 329221,
+  "non_trainable_parameters": 2257984,
+  "optimizer": "Adam",
+  "learning_rate": 0.0010000000474974513,
+  "model_path": "/home/wizard/Projects/school/AI/submissions/submission_v2/outputs/models/vision/mobilenetv2_feature_extraction.keras"
+}

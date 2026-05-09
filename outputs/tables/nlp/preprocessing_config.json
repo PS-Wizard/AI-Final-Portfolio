@@ -1,0 +1,10 @@
+{
+  "vocab_size": 20000,
+  "oov_token": "<OOV>",
+  "max_len": 13,
+  "embedding_dim_trainable": 128,
+  "embedding_dim_pretrained": 50,
+  "train_rows": 19826,
+  "test_rows": 4957,
+  "tokenizer_vocab_seen": 15945
+}

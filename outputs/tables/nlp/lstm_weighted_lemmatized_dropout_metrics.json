@@ -1,0 +1,13 @@
+{
+  "experiment_name": "lstm_weighted_lemmatized_dropout",
+  "accuracy": 0.8113778495057494,
+  "macro_precision": 0.6536076941249618,
+  "macro_recall": 0.7640454090657934,
+  "macro_f1": 0.6792343266948037,
+  "weighted_f1": 0.8362958032728534,
+  "misclassified_samples": 935,
+  "epochs_trained": 6,
+  "training_time_seconds": 20.041327982999064,
+  "trainable_parameters": 2611587,
+  "non_trainable_parameters": 0
+}

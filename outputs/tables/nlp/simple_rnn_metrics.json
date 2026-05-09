@@ -1,0 +1,13 @@
+{
+  "experiment_name": "simple_rnn",
+  "accuracy": 0.8815816017752673,
+  "macro_precision": 0.8093222460234024,
+  "macro_recall": 0.5962403786879069,
+  "macro_f1": 0.5874858420921704,
+  "weighted_f1": 0.857079810795568,
+  "misclassified_samples": 587,
+  "epochs_trained": 4,
+  "training_time_seconds": 25.796289376999994,
+  "trainable_parameters": 2574531,
+  "non_trainable_parameters": 0
+}

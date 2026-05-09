@@ -1,0 +1,13 @@
+{
+  "experiment_name": "lstm_class_weights_lemmatized",
+  "accuracy": 0.7934234415977406,
+  "macro_precision": 0.6561022269912703,
+  "macro_recall": 0.7802564478638766,
+  "macro_f1": 0.675613607738566,
+  "weighted_f1": 0.8263751190882669,
+  "misclassified_samples": 1024,
+  "epochs_trained": 5,
+  "training_time_seconds": 15.677765222000744,
+  "trainable_parameters": 2611587,
+  "non_trainable_parameters": 0
+}

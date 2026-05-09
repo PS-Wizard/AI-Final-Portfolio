@@ -1,0 +1,17 @@
+{
+  "accuracy": 0.9946057796478271,
+  "test_loss": 0.018151720985770226,
+  "macro_precision": 0.9921668681195603,
+  "macro_recall": 0.9930380683309089,
+  "macro_f1": 0.9925540913481667,
+  "weighted_f1": 0.9946102709830547,
+  "misclassified_samples": 13,
+  "experiment_name": "deeper_cnn_augmentation_batchnorm",
+  "epochs_trained": 10,
+  "training_time_seconds": 378.34073679500034,
+  "trainable_parameters": 8718245,
+  "non_trainable_parameters": 896,
+  "optimizer": "Adam",
+  "learning_rate": 0.0010000000474974513,
+  "model_path": "/home/wizard/Projects/school/AI/submissions/submission_v2/outputs/models/vision/deeper_cnn_augmentation_batchnorm.keras"
+}

@@ -1,0 +1,14 @@
+direction: right
+input: "Padded sequence\nmax_len = 13" { shape: rectangle }
+embed: "Embedding\ntrainable or GloVe" { shape: rectangle }
+rnn: "Simple RNN\nbaseline" { shape: rectangle }
+lstm: "LSTM family\nLSTM / dropout / BiLSTM" { shape: rectangle }
+reg: "Small regularized LSTM\n64-d embed, LSTM32\nSpatialDropout + recurrent dropout" { shape: rectangle }
+glove: "GloVe variants\nWiki 50 vs Twitter 50" { shape: rectangle }
+out: "Dense + softmax\n3 classes" { shape: rectangle }
+
+input -> embed
+embed -> rnn -> out
+embed -> lstm -> out
+embed -> reg -> out
+reg -> glove -> out

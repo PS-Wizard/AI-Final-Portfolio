@@ -1,0 +1,5 @@
+metric,value
+total_labeled_images,16065
+total_classes,5
+corrupted_images,35
+unlabeled_test_images,10

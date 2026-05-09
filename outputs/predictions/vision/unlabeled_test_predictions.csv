@@ -1,0 +1,11 @@
+path,filename,predicted_label_id,predicted_class,confidence
+/home/wizard/Projects/school/AI/submissions/assets/Traffic_Sign_2/Test/00004_00002_00011.png,00004_00002_00011.png,4,SpeedLimit,1.0
+/home/wizard/Projects/school/AI/submissions/assets/Traffic_Sign_2/Test/00008_00013_00018.png,00008_00013_00018.png,4,SpeedLimit,1.0
+/home/wizard/Projects/school/AI/submissions/assets/Traffic_Sign_2/Test/00014_00000_00002.png,00014_00000_00002.png,3,No Entry,1.0
+/home/wizard/Projects/school/AI/submissions/assets/Traffic_Sign_2/Test/00015_00002_00026.png,00015_00002_00026.png,3,No Entry,1.0
+/home/wizard/Projects/school/AI/submissions/assets/Traffic_Sign_2/Test/00021_00000_00000.png,00021_00000_00000.png,0,Cautions,0.9958055
+/home/wizard/Projects/school/AI/submissions/assets/Traffic_Sign_2/Test/00021_00000_00001.png,00021_00000_00001.png,0,Cautions,0.9999459
+/home/wizard/Projects/school/AI/submissions/assets/Traffic_Sign_2/Test/00027_00000_00002.png,00027_00000_00002.png,1,Crossings,0.9999709
+/home/wizard/Projects/school/AI/submissions/assets/Traffic_Sign_2/Test/00027_00000_00003.png,00027_00000_00003.png,1,Crossings,0.9999131
+/home/wizard/Projects/school/AI/submissions/assets/Traffic_Sign_2/Test/00036_00000_00001.png,00036_00000_00001.png,2,Direction,0.9999995
+/home/wizard/Projects/school/AI/submissions/assets/Traffic_Sign_2/Test/00036_00000_00002.png,00036_00000_00002.png,2,Direction,1.0

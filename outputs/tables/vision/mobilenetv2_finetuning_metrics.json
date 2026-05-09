@@ -1,0 +1,17 @@
+{
+  "accuracy": 0.9962655305862427,
+  "test_loss": 0.008428697474300861,
+  "macro_precision": 0.9937163141201871,
+  "macro_recall": 0.9934901092259683,
+  "macro_f1": 0.9935508207205711,
+  "weighted_f1": 0.9962636530988507,
+  "misclassified_samples": 9,
+  "experiment_name": "mobilenetv2_finetuning",
+  "epochs_trained": 5,
+  "training_time_seconds": 132.4967962490009,
+  "trainable_parameters": 1677701,
+  "non_trainable_parameters": 909504,
+  "optimizer": "Adam",
+  "learning_rate": 9.999999747378752e-06,
+  "model_path": "/home/wizard/Projects/school/AI/submissions/submission_v2/outputs/models/vision/mobilenetv2_finetuning.keras"
+}

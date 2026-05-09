@@ -1,0 +1,17 @@
+{
+  "accuracy": 0.9946057796478271,
+  "test_loss": 0.027362994849681854,
+  "macro_precision": 0.9931416554236815,
+  "macro_recall": 0.992055296096735,
+  "macro_f1": 0.9925827970076652,
+  "weighted_f1": 0.9946040339400939,
+  "misclassified_samples": 13,
+  "experiment_name": "baseline_cnn_class_weights",
+  "epochs_trained": 9,
+  "training_time_seconds": 89.46807197199996,
+  "trainable_parameters": 8523589,
+  "non_trainable_parameters": 0,
+  "optimizer": "Adam",
+  "learning_rate": 0.0010000000474974513,
+  "model_path": "/home/wizard/Projects/school/AI/submissions/submission_v2/outputs/models/vision/baseline_cnn_class_weights.keras"
+}

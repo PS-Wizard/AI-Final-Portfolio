@@ -1,0 +1,13 @@
+{
+  "experiment_name": "lstm_small_regularized_weighted_lemmatized",
+  "accuracy": 0.8180351018761347,
+  "macro_precision": 0.6574023817240103,
+  "macro_recall": 0.7742563209959131,
+  "macro_f1": 0.686156074681285,
+  "weighted_f1": 0.8422201392473982,
+  "misclassified_samples": 902,
+  "epochs_trained": 7,
+  "training_time_seconds": 86.142426522998,
+  "trainable_parameters": 1292995,
+  "non_trainable_parameters": 0
+}

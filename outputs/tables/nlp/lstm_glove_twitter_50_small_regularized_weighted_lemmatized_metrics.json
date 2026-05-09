@@ -1,0 +1,13 @@
+{
+  "experiment_name": "lstm_glove_twitter_50_small_regularized_weighted_lemmatized",
+  "accuracy": 0.8400242081904378,
+  "macro_precision": 0.6918265846427497,
+  "macro_recall": 0.8250968090038685,
+  "macro_f1": 0.7218029482758466,
+  "weighted_f1": 0.8642410610129218,
+  "misclassified_samples": 793,
+  "epochs_trained": 11,
+  "training_time_seconds": 130.25829236700156,
+  "trainable_parameters": 1011203,
+  "non_trainable_parameters": 0
+}

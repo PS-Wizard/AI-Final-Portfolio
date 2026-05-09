@@ -1,0 +1,9 @@
+,precision,recall,f1-score,support
+Cautions,1.0,1.0,1.0,251.0
+Crossings,1.0,1.0,1.0,273.0
+Direction,1.0,1.0,1.0,444.0
+No Entry,1.0,1.0,1.0,440.0
+SpeedLimit,1.0,1.0,1.0,1002.0
+accuracy,1.0,1.0,1.0,1.0
+macro avg,1.0,1.0,1.0,2410.0
+weighted avg,1.0,1.0,1.0,2410.0

@@ -1,0 +1,14 @@
+direction: right
+
+input: "Input image\n128×128×3" { shape: rectangle }
+conv1: "Conv2D 32\n3×3, ReLU" { shape: rectangle }
+pool1: "MaxPool\n2×2" { shape: rectangle }
+conv2: "Conv2D 64\n3×3, ReLU" { shape: rectangle }
+pool2: "MaxPool\n2×2" { shape: rectangle }
+conv3: "Conv2D 128\n3×3, ReLU" { shape: rectangle }
+pool3: "MaxPool\n2×2" { shape: rectangle }
+flat: "Flatten" { shape: rectangle }
+dense: "Dense head\n256 → 128 → 64" { shape: rectangle }
+out: "Softmax\n5 classes" { shape: rectangle }
+
+input -> conv1 -> pool1 -> conv2 -> pool2 -> conv3 -> pool3 -> flat -> dense -> out

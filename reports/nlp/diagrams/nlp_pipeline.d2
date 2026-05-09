@@ -1,0 +1,11 @@
+direction: right
+raw: "Raw tweets\n24,783 rows" { shape: rectangle }
+labels: "Label normalization\nhate_speech / offensive_language / neither" { shape: rectangle }
+clean: "Text cleaning\nURLs, mentions, numbers, punctuation, stopwords, rt" { shape: rectangle }
+norm: "Normalization comparison\nPorter stemming vs WordNet lemmatization" { shape: rectangle }
+split: "Stratified split\n80% train / 20% test" { shape: rectangle }
+tok: "Tokenizer + padding\n20k vocab, 95th percentile length" { shape: rectangle }
+models: "Model experiments\nSimple RNN → LSTM → GloVe" { shape: rectangle }
+eval: "Evaluation\nmacro F1, accuracy, confusion matrix" { shape: rectangle }
+
+raw -> labels -> clean -> norm -> split -> tok -> models -> eval

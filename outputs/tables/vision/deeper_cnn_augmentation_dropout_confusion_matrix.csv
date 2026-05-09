@@ -1,0 +1,6 @@
+,Cautions,Crossings,Direction,No Entry,SpeedLimit
+Cautions,250,1,0,0,0
+Crossings,1,271,0,0,1
+Direction,0,0,444,0,0
+No Entry,0,0,0,440,0
+SpeedLimit,0,0,0,1,1001
