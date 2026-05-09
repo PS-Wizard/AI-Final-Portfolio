@@ -100,7 +100,7 @@ The notebooks import shared code from `src/` and write reproducible artefacts to
 
 ## Git Provenance
 
-This directory is an independent Git repository for the final submission. The first commit records the initial submitted state; later typo or cover-page fixes appear after it in the Git history.
+The first commit records symbolizes the initial submitted state; later typo or coverpage fixes might appear after it in the Git history.
 
 Verify the first commit with:
 
