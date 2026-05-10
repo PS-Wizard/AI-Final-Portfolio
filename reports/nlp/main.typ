@@ -1,34 +1,14 @@
 // Compile from this directory with: typst compile --root ../.. main.typ main.pdf
 
 #import "@preview/hetvid:0.2.1": *
+#import "../cover.typ": cover-page
 
 #set document(
   title: [Task III: Hate Speech and Offensive Language Classification],
 )
 
-#show: hetvid.with(
-  title: [2431342; Swoyam Pokharel],
-  author: "Swoyam Pokharel",
-  affiliation: [Herald College Kathmandu],
-  date-created: "2026",
-  date-modified: "2026",
-  toc: false,
-  paper-size: "a4",
-  lang: "en",
-  body-font: "Noto Serif",
-  heading-font: "Libertinus Serif",
-  raw-font: "JetBrainsMono NF",
-  math-font: "New Computer Modern Math",
-  body-font-size: 10pt,
-  caption-font-size: 9pt,
-  justify: true,
-  hyphenate: false,
-  link-color: black,
-  muted-color: rgb("#444444"),
-  block-bg-color: luma(235),
-)
-
-#set page(numbering: none)
+#set page(paper: "a4", numbering: none)
+#set text(font: "Noto Serif", size: 10pt, lang: "en")
 
 #set par(
   first-line-indent: 0pt,
@@ -106,6 +86,10 @@
     ..rows,
   )
 ]
+
+#cover-page([Task III: Hate Speech and Offensive Language Classification])
+
+#pagebreak()
 
 #line(length: 100%, stroke: 0.4pt + luma(160))
 
