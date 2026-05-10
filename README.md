@@ -37,15 +37,10 @@ submission_v2/
 └── README.md
 ```
 
-## What Is Committed
-
-- Source code, notebooks, reports, diagrams, and compiled PDFs.
-- Lightweight evidence from completed runs: plots, metrics tables, histories, model summaries, and prediction CSVs.
-- Dataset symlinks that document the expected local dataset locations.
-
 ## What Is Not Committed
 
 - Keras model weight files under `outputs/models/`, because the generated model directory is about 1.2 GB.
+    - Find them at: https://drive.google.com/drive/folders/1QewV1aHo5g7sMqgvSi6U7S61gYJ6ro95?usp=sharing
 - Python bytecode, notebook checkpoints, virtual environments, and local cache files.
 - Full dataset copies. The repository stores symlink references instead of uploading the dataset contents.
 
@@ -88,10 +83,10 @@ jupyter notebook notebooks/2431342_Swoyam_Pokharel_NLP_Inference.ipynb
 
 The notebooks import shared code from `src/` and write reproducible artefacts to `outputs/`.
 
-## Tools And Technologies
+## What was used 
 
 - Python for notebooks and reusable experiment code.
-- Jupyter Notebook for execution, analysis, and result presentation.
+    - Jupyter Notebook for execution, analysis, and result presentation.
 - TensorFlow/Keras for CNN, RNN, LSTM, BiLSTM, and MobileNetV2 experiments.
 - NumPy, pandas, matplotlib, Pillow, scikit-learn, and gensim for data handling, plotting, evaluation, image loading, and embeddings.
 - Typst for report authoring and PDF generation.

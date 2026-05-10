@@ -3,8 +3,7 @@
 #import "@preview/versatile-apa:7.2.0": abstract-page, title-page, versatile-apa as apa-style
 
 #set document(
-  title: [Task II: Traffic Sign Classification ],
-  keywords: ("traffic sign classification", "CNN", "MobileNetV2", "transfer learning", "computer vision"),
+  title: [Task II: Traffic Sign Classification],
 )
 
 #show: apa-style.with(
@@ -98,13 +97,17 @@
 )
 
 #abstract-page([
-  This report presents Task II of the final assessment. It is a five-class image classification problem classifying the `Traffic_Sign_2` dataset. This report documents the findings of the various experiments that were produced as a result of answering Task II. The entire project was treated as a controlled model-design study rather than a single model run. The experiment chanin includes baseline CNN variants, two transfer-learning strategies and a deeper CNN ablation study.
+  This report presents Task II of the final assessment. It is a five-class image classification problem classifying the `Traffic_Sign_2` dataset. This report documents the findings of the various experiments that were produced as a result of answering Task II. The entire project was treated as a controlled model-design study rather than a single model run. The experiment chain includes baseline CNN variants, two transfer-learning strategies, and a deeper CNN ablation study.
 
-  The strongest raw results came from `deeper_cnn_augmentation` which reached `1.00` accuracy, `1.00` macro F1, and `0` misclassified samples, on the test split.
+  The strongest raw results came from `deeper_cnn_augmentation` which reached `1.00` accuracy, `1.00` macro F1, and `0` misclassified samples on the test split.
 
-  The strongest transfer learning result came from MobileNetV2's fine tuning, which reached `.9963` accuracy and `.9936` macro F1, while using about ~5x less trainable parameters than the scratch CNN family.
+  The strongest transfer learning result came from MobileNetV2's fine-tuning, which reached `.9963` accuracy and `.9936` macro F1, while using about 5x fewer trainable parameters than the scratch CNN family.
 
-  Overall, the dataset was highly learnable; even just the baseline CNN performed extremely well reaching `.997` accuracy, and `.995` macro F1. The experiment sequence showed that extra components as class weighting, batch normalization, dropout and SDG don't automatically help improve a model.
+  Overall, the dataset was highly learnable; even just the baseline CNN performed extremely well, reaching `.997` accuracy and `.995` macro F1. The experiment sequence showed that extra components such as class weighting, batch normalization, dropout, and SGD don't automatically help improve a model.
+
+  \
+  \
+  The generated models can be found in the shared Google Drive folder (#link("https://drive.google.com/drive/folders/1QewV1aHo5g7sMqgvSi6U7S61gYJ6ro95?usp=sharing")[generated models]). The source code, outputs, CSV files, and related project files can be found in the GitHub repository (#link("https://github.com/PS-Wizard/AI-Final-Portfolio")[AI-Final-Portfolio]).
 ])
 
 #outline(title: [Contents])
@@ -118,7 +121,7 @@ The assignment requires two main modelling approaches: a convolutional neural ne
 
 Accuracy is reported throughout the report, but it is not used alone. The dataset is imbalanced, with `SpeedLimit` containing far more images than the smaller classes such as `Cautions` and `Crossings`. Because of that, macro F1 is used to keep minority-class performance visible, while confusion matrices are used to show the actual error patterns behind the headline scores.
 
-The report follows the experiment sequence used in the notebook. First, the baseline CNN is tested with and without augmentation and class weighting. Second, a deeper CNN is evaluated through augmentation, batch normalization, dropout, and their combination. Third, Adam is compared against SGD with momentum on the same deeper architecture. Finally, MobileNetV2 is tested through feature extraction and fine-tuning. All in all, this report covers 10 total experiments and the final sections combine all results, compare model complexity against performance.
+The report follows the experiment sequence used in the notebook. First, the baseline CNN is tested with and without augmentation and class weighting. Second, a deeper CNN is evaluated through augmentation, batch normalization, dropout, and their combination. Third, Adam is compared against SGD with momentum on the same deeper architecture. Finally, MobileNetV2 is tested through feature extraction and fine-tuning. All in all, this report covers 10 total experiments, and the final sections combine all results and compare model complexity against performance.
 
 #pagebreak()
 
@@ -152,7 +155,7 @@ The dataset has five classes:
 - `No Entry`,
 - `SpeedLimit`.
 
-The imbalance is visible immediately. `SpeedLimit` has `6,681` images, while `Cautions` has only `1,671`. Although this does not make the dataset immediately unusable, it does mean that accuracy alone can hide weak minority-class behaviour, thus macro F1 is a better metric for evaluation.
+The imbalance is visible immediately. `SpeedLimit` has `6,681` images, while `Cautions` has only `1,671`. Although this does not make the dataset immediately unusable, it does mean that accuracy alone can hide weak minority-class behaviour; thus, macro F1 is a better metric for evaluation.
 
 #table-figure(
   1,
@@ -173,7 +176,7 @@ The imbalance is visible immediately. `SpeedLimit` has `6,681` images, while `Ca
 
 == Split strategy
 
-The labelled images were split into train, validation, and test sets using a *stratified* `70/15/15` split. Stratified matters because every model is compared on the same class-balanced split structure rather than on a random split that might accidentally make one experiment easier than another.
+The labelled images were split into train, validation, and test sets using a *stratified* `70/15/15` split. Stratification matters because every model is compared on the same class-balanced split structure rather than on a random split that might accidentally make one experiment easier than another.
 
 #image-figure(
   2,
@@ -192,7 +195,7 @@ The final split was consistent across classes:
 
 == Preprocessing and augmentation
 
-The scratch CNN models used `128 x 128` RGB images normalized to `[0, 1]`, however the MobileNetV2 used `224 x 224` inputs and the expected MobileNetV2 preprocessing function instead of the `[0,1]` normalization.
+The scratch CNN models used `128 x 128` RGB images normalized to `[0, 1]`; however, the MobileNetV2 used `224 x 224` inputs and the expected MobileNetV2 preprocessing function instead of the `[0,1]` normalization.
 
 
 #image-figure(
@@ -204,7 +207,7 @@ The scratch CNN models used `128 x 128` RGB images normalized to `[0, 1]`, howev
 #pagebreak()
 = Experimental Setup
 
-All experiments were implemented in TensorFlow/Keras with a fixed seed of `42`. Everything was run locally while utilizing the system's GPU. The codebase was split into separate Python modules rather than being placed entirely inside the notebook.  This structure made the notebook more of an experiment driver rather than the only place where the actual logic lived.
+All experiments were implemented in TensorFlow/Keras with a fixed seed of `42`. Everything was run locally while utilizing the system's GPU. The codebase was split into separate Python modules rather than being placed entirely inside the notebook. This structure made the notebook more of an experiment driver rather than the only place where the actual logic lived.
 
 ```text
 src/vision/
@@ -231,7 +234,7 @@ outputs/
 
 \
 
-Every scored model used the same labelled test split. Training histories, metrics, confusion matrices, prediction files, model summaries, and saved model files were written under `outputs/`. This was done so that each run had it's evidence that could be checked again later, rather than relying on screenshots, notebook memory, or manually copied numbers.
+Every scored model used the same labelled test split. Training histories, metrics, confusion matrices, prediction files, model summaries, and saved model files were written under `outputs/`. This was done so that each run had its evidence that could be checked again later, rather than relying on screenshots, notebook memory, or manually copied numbers.
 
 Most experiments used Adam. A separate optimizer comparison tested SGD with momentum on the same deeper architecture.
 
@@ -323,7 +326,7 @@ The takeaway then is that the baseline CNN already learned the dataset extremely
 
 == Architecture and rationale
 
-The deeper CNN increases capacity by using two convolutional layers per block instead of one. Although augmentation was not strictly better in the shallow baseline family, it was kept as the common base for the deeper CNN experiments so that the ablation could test what happens when batch normalization and dropout are added to the same deeper augmented pipeline?
+The deeper CNN increases capacity by using two convolutional layers per block instead of one. Although augmentation was not strictly better in the shallow baseline family, it was kept as the common base for the deeper CNN experiments so that the ablation could test what happens when batch normalization and dropout are added to the same deeper augmented pipeline.
 
 #image-figure(
   7,
@@ -332,7 +335,7 @@ The deeper CNN increases capacity by using two convolutional layers per block in
 )
 
 
-We need to recall that the baseline was already strong, if a deeper model improves performance, we need to answer whether the improvement comes from extra depth, augmentation, dropout, batch normalization, or some other specific combination.
+We need to recall that the baseline was already strong; if a deeper model improves performance, we need to answer whether the improvement comes from extra depth, augmentation, dropout, batch normalization, or some other specific combination.
 
 #pagebreak()
 
@@ -416,7 +419,7 @@ These figures show the training and validation behaviour for the four deeper CNN
 
 The strongest model in the entire Vision study was `deeper_cnn_augmentation`. It reached `1.0000` accuracy, `1.0000` macro F1, and `0` misclassified samples on the held-out labelled test split.
 
-The deeper dropout variant was also strong, but it did not beat the plain deeper augmented model. Batch normalization alone was weaker, and the batch-normalization-plus-dropout combination was much worse. Thus the takewaway from this ablation is that extra regularization is not automatically useful. In this dataset and architecture, the simplest deeper augmented variant performs better.
+The deeper dropout variant was also strong, but it did not beat the plain deeper augmented model. Batch normalization alone was weaker, and the batch-normalization-plus-dropout combination was much worse. Thus the takeaway from this ablation is that extra regularization is not automatically useful. In this dataset and architecture, the simplest deeper augmented variant performs better.
 
 = Optimizer Comparison
 
@@ -459,14 +462,14 @@ The optimizer comparison used the same deeper batch-normalization-plus-dropout a
 
 Adam was far more stable in this setup. SGD with momentum used a learning rate of `1e-2` with momentum set to `0.9`, but it collapsed to `0.4158` accuracy and `0.1175` macro F1, with `1,408` misclassified samples.
 
-The conclusion is not that SGD is universally bad but that the SGD configuration was unsuitable for this architecture and dataset. In later review, I've realized that the `1e-2` learning rate was likely too large for this SGD setup. Optimizer configuration was a real bottleneck here.
+The conclusion is not that SGD is universally bad but that the SGD configuration was unsuitable for this architecture and dataset. In a later review, I've realized that the `1e-2` learning rate was likely too large for this SGD setup. Optimizer configuration was a real bottleneck here.
 
 #pagebreak()
 = Transfer Learning with MobileNetV2
 
 == Architecture and rationale
 
-MobileNetV2 was used as the transfer-learning backend because it comparetively lighter amongst the larger ImageNet models while still providing pretrained visual features. Two strategies were tested: feature extraction and fine-tuning. 
+MobileNetV2 was used as the transfer-learning backend because it is comparatively lighter amongst the larger ImageNet models while still providing pretrained visual features. Two strategies were tested: feature extraction and fine-tuning. 
 
 #image-figure(
   12,
@@ -521,7 +524,7 @@ The important point is efficiency. The scratch CNN models used around `8.5M--8.7
 
 = Global Comparative Analysis
 
-All in all, the experiment registry proves that the dataset is highly learnable, but it also shows that the path to the best model isn't obvious . Some additions helped, some were neutral, and some made the result worse.
+All in all, the experiment registry proves that the dataset is highly learnable, but it also shows that the path to the best model isn't obvious. Some additions helped, some were neutral, and some made the result worse.
 
 #image-figure(
   15,
@@ -553,11 +556,11 @@ All in all, the experiment registry proves that the dataset is highly learnable,
   ),
 )
 
-The best raw model was `deeper_cnn_augmentation`. The best transfer-learning model was `mobilenetv2_finetuning`. The baseline CNN was already very strong, which is why the later improvements are small in the absolute sense. However, the experiments still gave us meaningful results because it shows that class weighting, batch normalization, and the tested SGD setup were not useful in this specific workflow.
+The best raw model was `deeper_cnn_augmentation`. The best transfer-learning model was `mobilenetv2_finetuning`. The baseline CNN was already very strong, which is why the later improvements are small in the absolute sense. However, the experiments still gave us meaningful results because they show that class weighting, batch normalization, and the tested SGD setup were not useful in this specific workflow.
 
 The efficiency picture is also worth re-mentioning. The highest-scoring scratch model used more than eight million trainable parameters. MobileNetV2 fine-tuning used far fewer trainable parameters and still reached near-baseline performance. 
 
-Therefore, the choice choice therefore really depends on what we are aiming for, maximum held-out test score or a smaller trainable model with strong practical performance.
+Therefore, the choice really depends on what we are aiming for: maximum held-out test score or a smaller trainable model with strong practical performance.
 
 \
 
@@ -567,7 +570,7 @@ The best overall model made zero errors on the held-out labelled test set, so it
 
 #image-figure(
   17,
-  [error analysis and inference examples.],
+  [Error analysis and inference examples.],
   two-up(
     panel(
       imgroot + "/error_analysis/mobilenetv2_finetuning_misclassified_gallery.png",
@@ -594,12 +597,12 @@ The best overall model made zero errors on the held-out labelled test set, so it
 
 Here, the unlabeled test images are not formal evaluation because ground-truth labels are unavailable. They only show inference behaviour on unseen files. 
 
-The low-confidence labelled examples also help explain why the remaining mistakes are not only caused by blur. The bicycle-crossing image specifically, is visually clearer than several other samples, but it still has the same red triangular warning-sign structure that appears strongly in the `Cautions` class. The model therefore appears to confuse the broad sign shape and warning-sign context with the more specific bicycle-crossing symbol, which is why it predicts `Cautions` with only moderate confidence rather than confidently recognizing it as `Crossings`.
+The low-confidence labelled examples also help explain why the remaining mistakes are not only caused by blur. The bicycle-crossing image specifically is visually clearer than several other samples, but it still has the same red triangular warning-sign structure that appears strongly in the `Cautions` class. The model therefore appears to confuse the broad sign shape and warning-sign context with the more specific bicycle-crossing symbol, which is why it predicts `Cautions` with only moderate confidence rather than confidently recognizing it as `Crossings`.
 
 #pagebreak()
 = Model Complexity and Efficiency
 
-The model-complexity and performance is inheretly a tradeoff, and we need to find a balance between the two. The scratch CNN family achieved the best score, but it also carried the largest trainable parameter count. The MobileNetV2 models were smaller in trainable terms because most of the representation came from the pretrained backend.
+The model-complexity and performance are inherently a trade-off, and we need to find a balance between the two. The scratch CNN family achieved the best score, but it also carried the largest trainable parameter count. The MobileNetV2 models were smaller in trainable terms because most of the representation came from the pretrained backend.
 
 Thus the takeaway is pretty straightforward:
 
@@ -635,7 +638,7 @@ Training time also did not perfectly predict performance. Some slower variants w
 
 = Limitations
 
-The experiments have several limitations. First, the perfect test-set result should be interpreted carefully. It shows that the selected model solved the held out, labelled, test split of `2,410` images, not that it would remain perfect under real-world road conditions. If this same model was deployed in a real world scenario, it would almost certainly perform much wrose. Deployment's data would contain more variation in camera quality, lighting, blur, occlusion, weather, viewing angle, and sign damage.
+The experiments have several limitations. First, the perfect test-set result should be interpreted carefully. It shows that the selected model solved the held-out, labelled test split of `2,410` images, not that it would remain perfect under real-world road conditions. If this same model was deployed in a real-world scenario, it would almost certainly perform much worse. Deployment data would contain more variation in camera quality, lighting, blur, occlusion, weather, viewing angle, and sign damage.
 
 There are also experimental limits. 
 - Only one transfer-learning backbone was tested.

@@ -4,7 +4,6 @@
 
 #set document(
   title: [Task III: Hate Speech and Offensive Language Classification],
-  keywords: ("text classification", "RNN", "LSTM", "GloVe", "hate speech detection", "NLP"),
 )
 
 #show: apa-style.with(
@@ -69,7 +68,7 @@
   title: [Task III: Hate Speech and Offensive Language Classification],
   authors: (
     (
-      name: [Swoyam Pokharel],
+      name: [Swoyam Pokharel; 2431342],
       affiliations: "herald",
     ),
   ),
@@ -82,11 +81,14 @@
 )
 
 #abstract-page([
-  This report presents the NLP task of the final portfolio assessment. It is a three-class tweet classification task for `hate_speech`, `offensive_language`, and `neither`. The project follows the required RNN-to-LSTM workflow, then extends it with preprocessing comparisons, class weighting, a regularized LSTM follow-up, and two pretrained GloVe embeddings. All in all, this NLP task covers a total of 10 experiments.
+  This report presents the NLP task of the final portfolio assessment. It is a three-class tweet classification task for `hate_speech`, `offensive_language`, and `neither`. The project follows the required RNN-to-LSTM workflow, then extends it with preprocessing comparisons, class weighting, a regularized LSTM follow-up, and two pretrained GloVe embeddings. All together, this NLP task covers a total of 10 experiments.
 
   The dataset contains `24,783` tweets and is heavily imbalanced, with `offensive_language` forming the majority class. Because of that, macro F1 is treated as the main comparison metric rather than raw accuracy alone. The best final model was `lstm_glove_twitter_50_small_regularized_weighted_lemmatized`, reaching `0.8400` accuracy, `0.7218` macro F1, and `0.8251` macro recall.
 
   The main result is that class weighting and lemmatization improved minority-class balance, the LSTM family improved over the Simple RNN baseline, and Twitter-domain GloVe embeddings were more useful than general Wikipedia GloVe embeddings for this tweet dataset.
+  \
+  \
+  The generated models can be found in the shared Google Drive folder (#link("https://drive.google.com/drive/folders/1QewV1aHo5g7sMqgvSi6U7S61gYJ6ro95?usp=sharing")[generated models]). The source code, outputs, CSV files, and related project files can be found in the GitHub repository (#link("https://github.com/PS-Wizard/AI-Final-Portfolio")[AI-Final-Portfolio]).
 ])
 
 #outline(title: [Contents])
@@ -97,9 +99,9 @@
 Hate-speech and offensive-language classification is useful in content moderation systems where platforms need to triage large volumes of user-generated text before human review. The difficult part is not just detecting abusive language. The model has to separate `hate_speech`, `offensive_language`, and `neither`, which is especially difficult because the first two categories can look very similar at the token level.
 
 
-The core question is: *which preprocessing and sequence-model choices improve tweet classification most effectively, especially under class imbalance?* The experiment answers that in stages. First, stemming and lemmatization are compared using Simple RNN baselines with and without class weighting. Second, the best preprocessing setup is carried into LSTM experiments. At which point, it was noticed that all of the recurrent models were showing signs of overfitting, so another model was produced specifically to tackle it: a smaller regularized LSTM with reduced capacity, `SpatialDropout1D`, recurrent dropout, and a smaller dense layer. This model performed the best, so this architecture was then reused as the base architecture for testing pretrained GloVe embeddings from general Wikipedia text and Twitter-domain text.
+The core question is: *which preprocessing and sequence-model choices improve tweet classification most effectively, especially under class imbalance?* The experiment answers that in stages. First, stemming and lemmatization are compared using Simple RNN baselines with and without class weighting. Second, the best preprocessing setup is carried into LSTM experiments. At that point, it was noticed that the recurrent models were showing signs of overfitting, so another model was produced specifically to tackle it: a smaller regularized LSTM with reduced capacity, `SpatialDropout1D`, recurrent dropout, and a smaller dense layer. This model performed the best, so this architecture was then reused as the base architecture for testing pretrained GloVe embeddings from general Wikipedia text and Twitter-domain text.
 
-Finally a small inference notebook was also created to load the saved model and classify user-entered text. It is not a full Tkinter GUI, but it follows the same practical idea as the optional task in the assignment: take new text, apply the same preprocessing pipeline, and return a model prediction.
+Finally, a small inference notebook was also created to load the saved model and classify user-entered text. Instead of a Tkinter based GUI, it uses a notebook interface, but follows the same practical idea as the optional task in the assignment: take new text, apply the same preprocessing pipeline, and return a model prediction.
 
 #pagebreak()
 
@@ -132,13 +134,14 @@ The dataset contains `24,783` tweets and three labels:
   ),
 )
 \
-The imbalance is the major constraint of the task. `offensive_language` has more than thirteen times as many samples as `hate_speech`. This means raw accuracy is easy to inflate. If a model predicts the majority class too often, it can still look decent by accuracy while failing the class that matters most for the task. Therefore macro F1, macro recall, confusion matrices, and class weighting were used as the major evaluation metrics.
+
+Class imbalance is the major constraint of the task. `offensive_language` has more than thirteen times as many samples as `hate_speech`. This means raw accuracy is easy to inflate. If a model predicts the majority class too often, it can still look decent by accuracy while failing the class that matters most for the task. Therefore, macro F1, macro recall, confusion matrices, and class weighting were used as the major evaluation metrics.
 
 \
 = Text Preprocessing
 
 The preprocessing pipeline cleans the tweets before tokenization. The cleaning step:
-- lowercases text
+- lowercases text,
 - decodes HTML entities,
 - expands contractions,
 - removes URLs,
@@ -147,7 +150,7 @@ The preprocessing pipeline cleans the tweets before tokenization. The cleaning s
 - removes numbers,
 - removes special characters,
 - removes English stopwords,
-- removes Twitter metadata such as `rt`. 
+- removes Twitter metadata such as `rt` 
 
 
 #image-figure(
@@ -211,7 +214,7 @@ All experiments were implemented in TensorFlow/Keras with a fixed seed of `42`. 
 src/nlp/
 ├── data.py          # load dataset, encode labels, and split data
 ├── text.py          # clean text, normalize, tokenize, and pad
-├── eda.py           # label plots, text-length plots, and word freq
+├── eda.py           # label plots, text-length plots, and word frequencies
 ├── models.py        # RNN, LSTM, BiLSTM, and regularized model builders
 ├── embeddings.py    # GloVe loading and embedding-matrix creation
 ├── experiments.py   # train, evaluate, save metrics and models
@@ -268,7 +271,7 @@ This produced four Simple RNN experiments:
   ),
 )
 
-Figures 6 and 7 show the first major problem. The training accuracy keeps improving and the training loss keeps falling, but the validation curves do not follow the same pattern. In the unweighted models, validation accuracy drops while validation loss rises, which is a direct overfitting signal. The class-weighted models are noisier as they are forced to pay more attention to the minority classes, but they still show the same general issue: the Simple RNN can fit the training data faster than it can generalize.
+Figures 6 and 7 show the first major issue: overfitting. The training accuracy keeps improving and the training loss keeps falling, but the validation curves do not follow the same pattern. In the unweighted models, validation accuracy drops while validation loss rises, which is a direct overfitting signal. The class-weighted models are noisier as they are forced to pay more attention to the minority classes, but they still show the same general issue: the Simple RNN can fit the training data faster than it can generalize.
 
 #pagebreak()
 #image-figure(
@@ -293,7 +296,7 @@ The unweighted Simple RNN models had higher accuracy, but their macro F1 was muc
 
 The higher accuracy is a bit misleading here. The unweighted models look stronger by raw accuracy, but they are mostly benefiting from the majority `offensive_language` class. The weighted models sacrifice some accuracy, but they produce better macro F1 and macro recall, which is more important for this imbalanced classification task.
 
-Thus, the best Simple RNN configuration was `simple_rnn_weighted_lemmatized`, with `0.6702` macro F1 and `0.7540` macro recall. This result decides the next stage, lemmatization and class weighting are carried forward into the LSTM experiments.
+Thus, the best Simple RNN configuration was `simple_rnn_weighted_lemmatized`, with `0.6702` macro F1 and `0.7540` macro recall. This result decides the next stage: lemmatization and class weighting are carried forward into the LSTM experiments.
 
 
 \
@@ -317,10 +320,10 @@ The initial LSTM experiments were:
   ),
 )
 
-The LSTM models improved over the Simple RNN baseline, but the training curves still  showed overfitting. Training loss kept dropping while validation loss rose after the early epochs. That means the model was learning the training set faster than it was improving generalization.
+The LSTM models improved over the Simple RNN baseline, but the training curves still showed overfitting. Training loss kept dropping while validation loss rose after the early epochs. That means the model was learning the training set faster than it was improving generalization.
 
 \
-So, to counter this overfitting problem, another model was added to address this directly: `lstm_small_regularized_weighted_lemmatized`. It reduced the embedding dimension, used fewer LSTM units, added `SpatialDropout1D`, used recurrent dropout inside the LSTM, and used a smaller dense layer. This was not a random extra model but aimed to be a direct response to the overfitting pattern.
+So, to counter this overfitting problem, another model was added to address this directly: `lstm_small_regularized_weighted_lemmatized`. It reduced the embedding dimension, used fewer LSTM units, added `SpatialDropout1D`, used recurrent dropout inside the LSTM, and used a smaller dense layer. This was aimed to be a direct response to the overfitting pattern.
 
 #image-figure(
   10,
@@ -388,7 +391,7 @@ This graph shows an important shift. The pretrained GloVe models reduce the over
   ),
 )
 
-However, Figure 13 shows that the main problem is not fully solved. Both GloVe models still confuse many `hate_speech` samples with `offensive_language`, because those labels are close in actual language use. However, the Twitter GloVe model reduces the total number of mistakes and gives the strongest macro F1, which supports the hypothesis: tweet-trained embeddings transfer better to tweet classification than general Wikipedia/news embeddings.
+However, Figure 13 shows that the main problem is not fully solved. Both GloVe models still confuse many `hate_speech` samples with `offensive_language`, because those labels are close in actual language use. Even so, the Twitter GloVe model reduces the total number of mistakes and gives the strongest macro F1, which supports the hypothesis: tweet-trained embeddings transfer better to tweet classification than general Wikipedia/news embeddings.
 
 #pagebreak()
 #image-figure(
@@ -407,8 +410,9 @@ However, Figure 13 shows that the main problem is not fully solved. Both GloVe m
   ),
 )
 
-Both pretrained embedding models improved over the trainable-embedding regularized LSTM. The Twitter-domain embedding performed best overall, reaching `0.8400` accuracy, `0.7218` macro F1, and `0.8251` macro recall. The Wiki GloVe model was also strong, but slightly weaker. This supports the domain-match argument: for tweet classification, Twitter-trained word vectors are more useful than general Wikipedia/news vectors.
+Both pretrained embedding models improved over the trainable-embedding regularized LSTM. The Twitter-domain embedding performed best overall, reaching `0.8400` accuracy, `0.7218` macro F1, and `0.8251` macro recall. The Wiki GloVe model was also strong, but slightly weaker. This supports the domain-match hypothesis: for tweet classification, Twitter-trained word vectors are more useful than general Wikipedia/news vectors.
 
+#pagebreak()
 = Final Comparison
 
 #image-figure(
@@ -434,9 +438,10 @@ Both pretrained embedding models improved over the trainable-embedding regulariz
   ),
 )
 
-The final ranking is clear. The strongest model was the lemmatized, class-weighted, regularized LSTM using `glove-twitter-50`: `lstm_glove_twitter_50_small_regularized_weighted_lemmatized`. It improved over the best Simple RNN from `0.6702` to `0.7218` macro F1, and reduced misclassified samples from `940` to `793`.
 
-So, all in all the total improvements came from a chain of decisions:
+Therefore, the strongest model was the lemmatized, class-weighted, regularized LSTM using `glove-twitter-50`: `lstm_glove_twitter_50_small_regularized_weighted_lemmatized`. It improved over the best Simple RNN from `0.6702` to `0.7218` macro F1, and reduced misclassified samples from `940` to `793`.
+
+Overall, the total improvements came from a chain of decisions:
 
 - Class weighting improved macro F1 even when it reduced raw accuracy.
 - Lemmatization slightly outperformed stemming under the class-weighted Simple RNN setup.
@@ -447,9 +452,9 @@ So, all in all the total improvements came from a chain of decisions:
 
 = Error Analysis and Inference Interface
 
-The final model still makes a pleanty mistakes. The biggest challenge that it has to separate `hate_speech` from `offensive_language`, which is a hard boundary because both classes can contain aggressive or abusive language. The model improves minority-class recall compared with the unweighted Simple RNN, but the confusion matrices still show that perfect separation is not realistic for this dataset.
+The final model still makes plenty of mistakes. The biggest challenge is separating `hate_speech` from `offensive_language`, which is a hard boundary because both classes can contain aggressive or abusive language. The model improves minority-class recall compared with the unweighted Simple RNN, but the confusion matrices still show that perfect separation is not realistic for this dataset.
 
-Additionally, the project also includes a lightweight inference notebook in the same repo: `2431342_Swoyam_Pokharel_NLP_Inference.ipynb`. It loads the saved best model, loads the lemmatized tokenizer, applies the same cleaning and padding pipeline, and returns class probabilities for user-entered text. This satisfies the real-time prediction requirement without adding a separate GUI framework. The mechanism is the same as deployment: clean text, tokenize, pad, run forward prediction, return probabilities.
+As for the inference interface, the project also includes a lightweight inference notebook in the same repo: `2431342_Swoyam_Pokharel_NLP_Inference.ipynb`. It loads the saved best model, loads the lemmatized tokenizer, applies the same cleaning and padding pipeline, and returns class probabilities for user-entered text. This satisfies the real-time prediction requirement without adding a separate GUI framework. The mechanism is the same as deployment: clean text, tokenize, pad, run forward prediction, return probabilities.
 
 \
 
