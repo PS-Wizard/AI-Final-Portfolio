@@ -15,6 +15,9 @@ def save_show(fig, path: Path | None = None, dpi: int = 200) -> None:
     plt.show()
 
 
+'''
+history.history -> accuray, val_accuracy, loss, val_loss
+'''
 def plot_history(history, title: str, path: Path | None = None) -> None:
     values = history.history if hasattr(history, "history") else history
     fig, axes = plt.subplots(1, 2, figsize=(14, 5))

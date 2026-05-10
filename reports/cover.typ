@@ -31,6 +31,7 @@
         column-gutter: 1.1em,
         align: (left, left),
         [Name], [Swoyam Pokharel],
+        [Student ID], [2431342],
         [Group], [15G],
         [Tutor], [Jinu Nyachhyon],
         [Module Leader], [Siman Giri],
