@@ -4,7 +4,7 @@ Student: Swoyam Pokharel
 Student ID: 2431342  
 Submission date: 2026-05-09
 
-This repository contains the final cleaned portfolio submission for the image classification and NLP tasks. The notebooks are backed by reusable Python modules under `src/`, with generated reports and lightweight experiment evidence committed under `outputs/`.
+This repository contains the final portfolio submission for the image classification and NLP tasks. The notebooks are backed by reusable Python modules under `src/`, with generated reports and lightweight experiment evidence committed under `outputs/`.
 
 ## Repository Structure
 

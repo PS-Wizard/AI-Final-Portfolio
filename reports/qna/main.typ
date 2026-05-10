@@ -1,64 +1,88 @@
-#import "@preview/versatile-apa:7.2.0": abstract-page, title-page, versatile-apa as apa-style
+#import "@preview/hetvid:0.2.1": *
 
 #set document(
   title: [Task I: Question and Answer],
 )
 
-#show: apa-style.with(
-  font-size: 12pt,
-  running-head: [ ],
+#show: hetvid.with(
+  title: [Task I: Question and Answer],
+  author: "Swoyam Pokharel; 2431342",
+  affiliation: [Herald College Kathmandu],
+  date-created: "2026",
+  date-modified: "2026",
+  toc: false,
+  paper-size: "a4",
+  lang: "en",
+  body-font: "Noto Serif",
+  heading-font: "Libertinus Serif",
+  raw-font: "JetBrainsMono NF",
+  math-font: "New Computer Modern Math",
+  body-font-size: 10pt,
+  caption-font-size: 9pt,
+  justify: true,
+  hyphenate: false,
+  link-color: black,
+  muted-color: rgb("#444444"),
+  block-bg-color: luma(245%),
 )
+
+#set page(numbering: none)
 
 #set par(
   first-line-indent: 0pt,
   justify: true,
 )
 
-#let note(body) = block(
-  width: 100%,
-  fill: luma(248),
-  inset: 8pt,
-  radius: 2pt,
-  stroke: 0.35pt + luma(190),
-)[#body]
+#show heading.where(level: 1): it => block(
+  above: 2.9em,
+  below: 1.35em,
+)[
+  #text(size: 1.18em)[#it.body]
+]
 
-#title-page(
-  title: [Task I: Question and Answer],
-  authors: (
-    (
-      name: [Swoyam Pokharel; 2431342],
-      affiliations: "herald",
-    ),
-  ),
-  affiliations: (
-    "herald": [Herald College Kathmandu],
-  ),
-  course: [6CS012: Artificial Intelligence and Machine Learning],
-  instructor: [Jinu Nyachhyon],
-  due-date: [2026],
-)
+#show heading.where(level: 2): it => block(
+  above: 1.35em,
+  below: 1.05em,
+)[
+  #text(size: 1.08em)[#it.body]
+  #v(-5pt)
+  #line(length: 100%, stroke: 0.35pt + luma(150))
+]
 
-#abstract-page([
-  This report covers Task I of the final portfolio assessment. The long answer focuses on production challenges in e-commerce machine learning systems. The first short answer discusses techniques used to reduce overfitting in deep learning. The second short answer compares convolutional neural networks and recurrent neural networks.
-])
+#show table.cell.where(y: 0): strong
 
-#outline(title: [Contents])
-#pagebreak()
+#show link: it => underline(offset: 1.5pt, stroke: 0.45pt + luma(120), it)
 
-= Question Selection
+#let section-gap = v(1.2em)
 
-#table(
+#let selection-table = table(
   columns: (1fr, 2.5fr),
-  inset: (x: 5pt, y: 4pt),
-  align: (left + horizon, right + horizon),
+  inset: (x: 7pt, y: 5pt),
+  align: (left + horizon, left + horizon),
   stroke: 0.35pt + luma(180),
+  fill: (x, y) => if y == 0 { luma(238) } else if calc.rem(y, 2) == 0 { luma(250) },
   table.header([Section], [Selected question]),
   [Long Question], [Machine learning challenges in e-commerce production systems.],
   [Short Question 1], [Techniques used to reduce overfitting.],
   [Short Question 2], [CNN versus RNN.],
 )
 
-\
+#line(length: 100%, stroke: 0.4pt + luma(160))
+
+#v(1.5em)
+
+#block(width: 100%)[
+  #text(weight: "bold", size: 1.08em)[Abstract]
+  #v(0.45em)
+  This report covers Task I of the final portfolio assessment. The long answer focuses on production challenges in e-commerce machine learning systems. The first short answer discusses techniques used to reduce overfitting in deep learning. The second short answer compares convolutional neural networks and recurrent neural networks.
+]
+
+#pagebreak()
+#outline(title: [Contents])
+#v(1.5em)
+#pagebreak()
+#counter(page).update(1)
+#set page(numbering: "1", number-align: center)
 
 = Long Question
 
@@ -66,7 +90,7 @@
 
 You are a Machine Learning Engineer at a rapidly growing e-commerce company responsible for deploying and maintaining ML systems in production. Identify and explain at least three real-world challenges encountered in ML systems. For each challenge, discuss consequences, practical solutions, trade-offs, cross-functional collaboration, and the role of modern tools.
 
-=== Answer
+== Answer
 In a real-world e-commerce ML system, deploying the model is a first step, arguably the bigger challenge is keeping the model reliable, fast, and useful in real-word production. ML in production, in the context of an e-commerce company, is difficult because features like user behaviour, products, prices, stock, campaigns, and fraud patterns can shift faster than the original training dataset.
 
 For instance, a recommendation model trained on normal shopping behaviour may fail during a major sale, where users suddenly become more price-sensitive and buy different categories of products. This is data drift. If ignored, it can reduce conversion, show irrelevant products, or miss suspicious checkout behaviour. Uber's Michelangelo platform is a useful example here because Uber notes that production models may behave differently from offline test sets, so it monitors predictions, actual outcomes, feature distributions, and prediction distributions (#link("https://www.uber.com/gb/en/blog/scaling-michelangelo/")[Uber Michelangelo]). For an e-commerce platform, the equivalent is monitoring click-through rate, add-to-cart rate, fraud alerts, and recommendation confidence over time. The trade-off is that outcome-based monitoring is more accurate but slower, while distribution monitoring is faster but less precise.
@@ -77,6 +101,8 @@ A third challenge is latency and scalability. Product search, ad ranking, and ch
 
 A reliable production ML system is not bound to just the model or the pipeline. Data scientists can improve the model, but engineers still have to serve it reliably, and operations teams need to provide feedback, as they see the business impact first, when systems like fraud detection, recommendations or search results fail. MLOps dashboards, retraining jobs, and LLM-based log analysis are useful support tools. They make failures easier to detect and debug, but they do not make the system safe by themselves.
 
+
+#pagebreak()
 = Short Question 1: Overfitting
 
 == Question
@@ -88,7 +114,9 @@ Overfitting is a common challenge in deep learning, especially when models have 
 Overfitting happens when a model fits the training data too closely and starts learning noise, repeated phrases, or background details instead of the actual signal. One common fix is dropout. Dropout randomly disables some neurons during training, forcing the network to avoid relying on one narrow set of features. In Part III of this assessment, amongst the NLP experiments, adding dropout to the weighted LSTM improved accuracy from `0.7997` to `0.8114` and reduced errors from `993` to `935`, but macro F1 slightly decreased from `0.6815` to `0.6792`. In Part II, the vision task, the deeper CNN with dropout also took longer (`315.33s`) than the version without dropout (`270.61s`), while accuracy dropped from `1.0000` to `0.9983`. So the takeaway here is that dropout can make the model less fragile, but it can also make training longer, noisier, and does not guarantee improvement on every metric.
 
 Early stopping is another practical technique. Early stopping is based on monitoring a chosen performance signal during training, usually a validation metric because validation data acts as a proxy for unseen data. The idea is to stop once that signal stops improving, rather than training until the model fully minimizes training loss. The intuition is that training should stop at the point where the model is no longer improving on unseen data, not when it has fully minimized training loss. A deep model can keep becoming better at the training set while its validation performance gets worse, which is a classic overfitting pattern. This helps in two ways: it reduces unnecessary training time and avoids pushing the model further into overfitting. Although not a perfect fix, because stopping too early can cause underfitting, it is a practical trade-off.
-\
+
+#pagebreak()
+
 = Short Question 2: Neural Network Architecture
 
 == Question

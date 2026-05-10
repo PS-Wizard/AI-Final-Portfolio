@@ -1,59 +1,101 @@
 // Compile from this directory with: typst compile --root ../.. main.typ main.pdf
 
-#import "@preview/versatile-apa:7.2.0": abstract-page, title-page, versatile-apa as apa-style
+#import "@preview/hetvid:0.2.1": *
 
 #set document(
   title: [Task II: Traffic Sign Classification],
 )
 
-#show: apa-style.with(
-  font-size: 12pt,
-  running-head: [ ],
+#show: hetvid.with(
+  title: [2431342; Swoyam Pokharel],
+  author: "Swoyam Pokharel",
+  affiliation: [Herald College Kathmandu],
+  date-created: "2026",
+  date-modified: "2026",
+  toc: false,
+  paper-size: "a4",
+  lang: "en",
+  body-font: "Noto Serif",
+  heading-font: "Libertinus Serif",
+  raw-font: "JetBrainsMono NF",
+  math-font: "New Computer Modern Math",
+  body-font-size: 10pt,
+  caption-font-size: 9pt,
+  justify: true,
+  hyphenate: false,
+  link-color: black,
+  muted-color: rgb("#444444"),
+  block-bg-color: luma(235),
 )
+
+#set page(numbering: none)
 
 #set par(
   first-line-indent: 0pt,
   justify: true,
 )
 
+#show heading.where(level: 1): it => block(
+  above: 2.9em,
+  below: 1.35em,
+)[
+  #text(size: 1.18em)[#it.body]
+]
+
+#show heading.where(level: 2): it => block(
+  above: 1.35em,
+  below: 1.05em,
+)[
+  #set text(size: 1.08em, weight: "regular")
+  #it
+  #v(-5pt)
+  #line(length: 100%, stroke: 0.35pt + luma(150))
+]
+
+#show table.cell.where(y: 0): strong
+
+#show link: it => underline(offset: 1.5pt, stroke: 0.45pt + luma(120), it)
+
 #let imgroot = "../../outputs/figures/vision"
 
 #let panel(path, title) = block[
   #image(path, width: 100%)
-  #v(-2pt)
-  #align(center)[#text(8pt, weight: "semibold")[#title]]
+  #v(2pt)
+  #align(center)[#text(8pt)[#title]]
 ]
 
 #let compact-panel(path, title) = block[
-  #image(path, width: 100%, height: 82pt, fit: "contain")
-  #v(-2pt)
-  #align(center)[#text(8pt, weight: "semibold")[#title]]
+  #image(path, width: 100%, height: 88pt, fit: "contain")
+  #v(2pt)
+  #align(center)[#text(8pt)[#title]]
 ]
 
 #let image-figure(number, caption, body) = block[
-  #counter(figure).step()
-  #set par(first-line-indent: 0pt)
-  #text(weight: "bold")[Figure #number]
-  #v(3pt)
-  #emph[#caption]
-  #v(6pt)
-  #block(
-    width: 100%,
-    fill: luma(248),
-    inset: 8pt,
-    radius: 2pt,
-  )[
-    #align(center)[#body]
+  #figure(caption: caption)[
+    #block(width: 100%, inset: (x: 12pt, y: 9pt))[
+      #align(center)[#body]
+    ]
+    #v(0.65em)
+  ]
+]
+
+#let compact-image-figure(number, caption, body) = block[
+  #figure(caption: caption)[
+    #block(width: 100%, inset: (x: 8pt, y: 4pt))[
+      #align(center)[#body]
+    ]
+    #v(0.35em)
   ]
 ]
 
 #let table-figure(number, caption, body) = block[
-  #set par(first-line-indent: 0pt)
-  #text(weight: "bold")[Table #number]
-  #v(3pt)
-  #emph[#caption]
-  #v(6pt)
-  #body
+  #figure(
+    kind: table,
+    supplement: [Table],
+    caption: caption,
+  )[
+    #text(size: 10pt)[#body]
+  ]
 ]
 
 #let two-up(a, b) = grid(
@@ -72,31 +114,33 @@
 #let metric-table(..rows) = text(size: 10pt)[
   #table(
     columns: (2.5fr, 0.9fr, 1fr, 0.8fr, 0.8fr, 1fr, 0.9fr),
-    inset: (x: 3pt, y: 3.2pt),
+    inset: (x: 5pt, y: 4pt),
     align: (left + horizon, right + horizon, right + horizon, right + horizon, right + horizon, right + horizon, right + horizon),
     stroke: 0.35pt + luma(180),
+    fill: (x, y) => if y == 0 { luma(238) } else if calc.rem(y, 2) == 0 { luma(250) },
     table.header([Model], [Acc.], [Macro F1], [Errors], [Epochs], [Time], [Params]),
     ..rows,
   )
 ]
 
-#title-page(
-  title: [Task II: Traffic Sign Classification],
-  authors: (
-    (
-      name: [Swoyam Pokharel],
-      affiliations: "herald",
-    ),
-  ),
-  affiliations: (
-    "herald": [Herald College Kathmandu],
-  ),
-  course: [6CS012: Artificial Intelligence and Machine Learning],
-  instructor: [Jinu Nyachhyon],
-  due-date: [2026],
+#let previous-optimizer-table = table(
+  columns: (1.8fr, 1fr, 1fr, 0.8fr, 0.8fr, 0.8fr, 1fr),
+  inset: (x: 6pt, y: 5pt),
+  align: (left + horizon, right + horizon, right + horizon, right + horizon, right + horizon, right + horizon, right + horizon),
+  stroke: 0.35pt + luma(180),
+  fill: (x, y) => if y == 0 { luma(238) } else if calc.rem(y, 2) == 0 { luma(250) },
+  table.header([Optimizer], [Accuracy], [Macro F1], [Errors], [Epochs], [LR], [Time]),
+  [Adam], [0.9975], [0.9963], [6], [15], [0.001], [547.89s],
+  [SGD + momentum], [0.9988], [0.9981], [3], [15], [0.01], [502.21s],
 )
 
-#abstract-page([
+#line(length: 100%, stroke: 0.4pt + luma(160))
+
+#v(1.5em)
+
+#block(width: 100%)[
+  #text(weight: "bold", size: 1.08em)[Abstract]
+  #v(0.45em)
   This report presents Task II of the final assessment. It is a five-class image classification problem classifying the `Traffic_Sign_2` dataset. This report documents the findings of the various experiments that were produced as a result of answering Task II. The entire project was treated as a controlled model-design study rather than a single model run. The experiment chain includes baseline CNN variants, two transfer-learning strategies, and a deeper CNN ablation study.
 
   The strongest raw results came from `deeper_cnn_augmentation` which reached `1.00` accuracy, `1.00` macro F1, and `0` misclassified samples on the test split.
@@ -108,10 +152,23 @@
   \
   \
   The generated models can be found in the shared Google Drive folder (#link("https://drive.google.com/drive/folders/1QewV1aHo5g7sMqgvSi6U7S61gYJ6ro95?usp=sharing")[generated models]). The source code, outputs, CSV files, and related project files can be found in the GitHub repository (#link("https://github.com/PS-Wizard/AI-Final-Portfolio")[AI-Final-Portfolio]).
-])
+]
 
-#outline(title: [Contents])
 #pagebreak()
+#outline(title: [Contents])
+#v(1.5em)
+#outline(
+  title: [List of Figures],
+  target: figure.where(kind: image),
+)
+#v(1.5em)
+#outline(
+  title: [List of Tables],
+  target: figure.where(kind: table),
+)
+#pagebreak()
+#counter(page).update(1)
+#set page(numbering: "1", number-align: center)
 
 = Introduction
 
@@ -123,19 +180,13 @@ Accuracy is reported throughout the report, but it is not used alone. The datase
 
 The report follows the experiment sequence used in the notebook. First, the baseline CNN is tested with and without augmentation and class weighting. Second, a deeper CNN is evaluated through augmentation, batch normalization, dropout, and their combination. Third, Adam is compared against SGD with momentum on the same deeper architecture. Finally, MobileNetV2 is tested through feature extraction and fine-tuning. All in all, this report covers 10 total experiments, and the final sections combine all results and compare model complexity against performance.
 
+
 #pagebreak()
 
 = Dataset and Preprocessing
-
-\
-
 == Dataset overview
 
 The labelled part of the dataset contained `16,065` usable images after the integrity scan. The scan also found `35` corrupted images, which were recorded but ignored. The separate `Test` folder contained only `10` unlabeled images, so those images were reserved for qualitative inference instead of formal scoring.
-
-#line(length: 100%, stroke: 0.4pt + luma(160))
-
-\
 
 #image-figure(
   1,
@@ -146,7 +197,6 @@ The labelled part of the dataset contained `16,065` usable images after the inte
   ),
 )
 
-#pagebreak()
 \
 The dataset has five classes:
 - `Cautions`,
@@ -162,9 +212,10 @@ The imbalance is visible immediately. `SpeedLimit` has `6,681` images, while `Ca
   [Class distribution after dataset scan.],
   table(
     columns: (1fr, 0.8fr, 2fr),
-    inset: 4pt,
+    inset: (x: 7pt, y: 5pt),
     align: left,
     stroke: 0.35pt + luma(180),
+    fill: (x, y) => if y == 0 { luma(238) } else if calc.rem(y, 2) == 0 { luma(250) },
     table.header([Class], [Images], [Role in dataset]),
     [Cautions], [1,671], [smallest labelled class],
     [Crossings], [1,821], [minority class],
@@ -190,9 +241,7 @@ The final split was consistent across classes:
 - `Direction` had `2072/445/444`,
 - `No Entry` had `2052/439/440`,
 - `SpeedLimit` had `4676/1003/1002`.
-
-#pagebreak()
-
+\
 == Preprocessing and augmentation
 
 The scratch CNN models used `128 x 128` RGB images normalized to `[0, 1]`; however, the MobileNetV2 used `224 x 224` inputs and the expected MobileNetV2 preprocessing function instead of the `[0,1]` normalization.
@@ -204,7 +253,6 @@ The scratch CNN models used `128 x 128` RGB images normalized to `[0, 1]`; howev
   align(center)[#image(imgroot + "/eda/augmentation_examples.png", width: 82%)],
 )
 
-#pagebreak()
 = Experimental Setup
 
 All experiments were implemented in TensorFlow/Keras with a fixed seed of `42`. Everything was run locally while utilizing the system's GPU. The codebase was split into separate Python modules rather than being placed entirely inside the notebook. This structure made the notebook more of an experiment driver rather than the only place where the actual logic lived.
@@ -238,7 +286,7 @@ Every scored model used the same labelled test split. Training histories, metric
 
 Most experiments used Adam. A separate optimizer comparison tested SGD with momentum on the same deeper architecture.
 
-\
+#pagebreak()
 
 = Baseline CNN Study
 
@@ -252,6 +300,7 @@ The baseline CNN establishes the starting point. It uses three convolutional blo
   align(center)[#image("diagrams/baseline_cnn.svg", width: 92%)],
 )
 
+\
 == Baseline experiments
 
 #par(first-line-indent: 0pt)[
@@ -318,10 +367,6 @@ The plain baseline CNN was the strongest model in this family, reaching `0.9971`
 
 The takeaway then is that the baseline CNN already learned the dataset extremely well. Class imbalance exists, but class weighting does not help this image model. Augmentation also was not better at the shallow baseline stage.
 
-\
-#line(length: 100%, stroke: 0.4pt + luma(160))
-\
-
 = Deeper CNN Experiments
 
 == Architecture and rationale
@@ -337,7 +382,6 @@ The deeper CNN increases capacity by using two convolutional layers per block in
 
 We need to recall that the baseline was already strong; if a deeper model improves performance, we need to answer whether the improvement comes from extra depth, augmentation, dropout, batch normalization, or some other specific combination.
 
-#pagebreak()
 
 == Results
 
@@ -425,7 +469,7 @@ The deeper dropout variant was also strong, but it did not beat the plain deeper
 
 The optimizer comparison used the same deeper batch-normalization-plus-dropout architecture and changed only the optimizer. Adam was compared against SGD with momentum. This keeps the interpretation narrow: the result is about optimizer behaviour under this configuration.
 
-#image-figure(
+#compact-image-figure(
   10,
   [Optimizer comparison training curves using the same deeper BN+dropout architecture.],
   two-up(
@@ -434,7 +478,7 @@ The optimizer comparison used the same deeper batch-normalization-plus-dropout a
   ),
 )
 
-#image-figure(
+#compact-image-figure(
   11,
   [Optimizer comparison confusion matrices.],
   two-up(
@@ -450,19 +494,44 @@ The optimizer comparison used the same deeper batch-normalization-plus-dropout a
   4,
   [Optimizer comparison.],
   table(
-    columns: (1.8fr, 1fr, 1fr, 0.8fr, 0.8fr, 1fr),
-    inset: (x: 3pt, y: 3.2pt),
-    align: (left + horizon, right + horizon, right + horizon, right + horizon, right + horizon, right + horizon),
+    columns: (1.8fr, 1fr, 1fr, 0.8fr, 0.8fr, 0.8fr, 1fr),
+    inset: (x: 6pt, y: 5pt),
+    align: (left + horizon, right + horizon, right + horizon, right + horizon, right + horizon, right + horizon, right + horizon),
     stroke: 0.35pt + luma(180),
-    table.header([Optimizer], [Accuracy], [Macro F1], [Errors], [Epochs], [Time]),
-    [Adam], [0.9809], [0.9659], [46], [15], [556.53s],
-    [SGD + momentum], [0.4158], [0.1175], [1,408], [7], [241.50s],
+    fill: (x, y) => if y == 0 { luma(238) } else if calc.rem(y, 2) == 0 { luma(250) },
+    table.header([Optimizer], [Accuracy], [Macro F1], [Errors], [Epochs], [LR], [Time]),
+    [Adam], [0.9809], [0.9659], [46], [15], [0.001], [556.53s],
+    [SGD + momentum], [0.4158], [0.1175], [1,408], [7], [0.01], [241.50s],
   ),
 )
 
-Adam was far more stable in this setup. SGD with momentum used a learning rate of `1e-2` with momentum set to `0.9`, but it collapsed to `0.4158` accuracy and `0.1175` macro F1, with `1,408` misclassified samples.
+Adam was far more stable in this rebuilt setup. SGD with momentum used a learning rate of `1e-2` with momentum set to `0.9`, but it collapsed to `0.4158` accuracy and `0.1175` macro F1, with `1,408` misclassified samples.
 
-The conclusion is not that SGD is universally bad but that the SGD configuration was unsuitable for this architecture and dataset. In a later review, I've realized that the `1e-2` learning rate was likely too large for this SGD setup. Optimizer configuration was a real bottleneck here.
+\
+
+However, this should not be read as SGD being universally worse than Adam. An earlier run on the same deeper CNN + augmentation + batch normalization + dropout setup showed the opposite pattern: `SGD + momentum` reached `0.9988` accuracy and `0.9981` macro F1 with only `3` errors, while Adam reached `0.9975` accuracy and `0.9963` macro F1 with `6` errors. 
+
+\
+The interesting thing to note is that the earlier stable SGD run also used the same `1e-2` learning rate with `0.9` momentum, so the failure on this run cannot be explained by the learning rate alone. The more accurate conclusion is that this optimizer result was configuration-sensitive and run-sensitive: the same SGD setting was strong in one setup but unstable in the rebuilt workflow.
+
+
+\
+#table-figure(
+  5,
+  [Earlier optimizer comparison retained from the previous notebook run.],
+  previous-optimizer-table,
+)
+
+\
+#compact-image-figure(
+  12,
+  [Earlier SGD + momentum evidence retained from the previous notebook run.],
+  two-up(
+    panel(imgroot + "/optimizer_note/previous_sgd_momentum_training_curves.png", [Earlier SGD + momentum training curves]),
+    panel(imgroot + "/optimizer_note/previous_adam_vs_sgd_training_time.png", [Earlier Adam vs SGD training time]),
+  ),
+)
+
 
 #pagebreak()
 = Transfer Learning with MobileNetV2
@@ -474,7 +543,7 @@ MobileNetV2 was used as the transfer-learning backend because it is comparativel
 #image-figure(
   12,
   [MobileNetV2 transfer-learning experiment setup],
-  align(center)[#image("diagrams/mobilenetv2_transfer.svg", width: 94%)],
+  align(center)[#image("diagrams/mobilenetv2_transfer.svg", width: 90%)],
 )
 
 == Results
@@ -488,6 +557,7 @@ MobileNetV2 was used as the transfer-learning backend because it is comparativel
   ),
 )
 
+\
 #image-figure(
   14,
   [Confusion matrices for MobileNetV2 transfer-learning experiments.],
@@ -518,8 +588,10 @@ MobileNetV2 was used as the transfer-learning backend because it is comparativel
   ),
 )
 
+\
 Fine-tuning outperformed feature extraction. It reached `0.9963` accuracy, `0.9936` macro F1, and only `9` misclassified samples. Feature extraction was slightly weaker but still strong, reaching `0.9950` accuracy and `0.9913` macro F1.
 
+\
 The important point is efficiency. The scratch CNN models used around `8.5M--8.7M` trainable parameters, while MobileNetV2 fine-tuning used around `1.68M`. It did not beat the best scratch CNN, but it came close with a much smaller trainable footprint. That makes it the strongest practical model if parameter efficiency matters.
 
 = Global Comparative Analysis
@@ -544,9 +616,10 @@ All in all, the experiment registry proves that the dataset is highly learnable,
   [Top five Vision experiments ranked by macro F1.],
   table(
     columns: (0.7fr, 2fr, 1fr, 1fr, 0.8fr),
-    inset: (x: 3pt, y: 3.2pt),
+    inset: (x: 7pt, y: 5pt),
     align: (center + horizon, left + horizon, right + horizon, right + horizon, right + horizon),
     stroke: 0.35pt + luma(180),
+    fill: (x, y) => if y == 0 { luma(238) } else if calc.rem(y, 2) == 0 { luma(250) },
     table.header([Rank], [Model], [Accuracy], [Macro F1], [Errors]),
     [1], [Deep + Aug.], [1.0000], [1.0000], [0],
     [2], [Deep + Aug. + Dropout], [0.9983], [0.9977], [4],
@@ -556,13 +629,16 @@ All in all, the experiment registry proves that the dataset is highly learnable,
   ),
 )
 
+\
 The best raw model was `deeper_cnn_augmentation`. The best transfer-learning model was `mobilenetv2_finetuning`. The baseline CNN was already very strong, which is why the later improvements are small in the absolute sense. However, the experiments still gave us meaningful results because they show that class weighting, batch normalization, and the tested SGD setup were not useful in this specific workflow.
 
+\
 The efficiency picture is also worth re-mentioning. The highest-scoring scratch model used more than eight million trainable parameters. MobileNetV2 fine-tuning used far fewer trainable parameters and still reached near-baseline performance. 
 
+\
 Therefore, the choice really depends on what we are aiming for: maximum held-out test score or a smaller trainable model with strong practical performance.
 
-\
+#pagebreak()
 
 = Error Analysis and Qualitative Inference
 
@@ -595,11 +671,11 @@ The best overall model made zero errors on the held-out labelled test set, so it
   ),
 )
 
+\
 Here, the unlabeled test images are not formal evaluation because ground-truth labels are unavailable. They only show inference behaviour on unseen files. 
 
 The low-confidence labelled examples also help explain why the remaining mistakes are not only caused by blur. The bicycle-crossing image specifically is visually clearer than several other samples, but it still has the same red triangular warning-sign structure that appears strongly in the `Cautions` class. The model therefore appears to confuse the broad sign shape and warning-sign context with the more specific bicycle-crossing symbol, which is why it predicts `Cautions` with only moderate confidence rather than confidently recognizing it as `Crossings`.
 
-#pagebreak()
 = Model Complexity and Efficiency
 
 The model-complexity and performance are inherently a trade-off, and we need to find a balance between the two. The scratch CNN family achieved the best score, but it also carried the largest trainable parameter count. The MobileNetV2 models were smaller in trainable terms because most of the representation came from the pretrained backend.
@@ -614,19 +690,22 @@ Thus the takeaway is pretty straightforward:
   [Saved model disk size versus test accuracy.],
   image(imgroot + "/comparisons/model_size_vs_accuracy.png", width: 100%),
 )
+\
+The saved model files show the same efficiency trade-off in a more deployment-facing way. The best scratch CNN models were around `98-100 MB` on disk, while `mobilenetv2_finetuning` was only about `23.24 MB` and still reached `0.9963` accuracy. This does not make MobileNetV2 the best raw scorer, but it makes the storage-performance compromise much stronger.
 
-The saved model files show the same efficiency trade-off in a more deployment-facing way. The best scratch CNN models were around `98--100 MB` on disk, while `mobilenetv2_finetuning` was only about `23.24 MB` and still reached `0.9963` accuracy. This does not make MobileNetV2 the best raw scorer, but it makes the storage-performance compromise much stronger.
-
+\
 Training time also did not perfectly predict performance. Some slower variants were weaker than faster ones. The `batch-normalization-plus-dropout` model took the longest in the deeper family but was not competitive with the simpler deeper augmented model. More computation was not automatically buying better generalization.
 
+\
 #table-figure(
   7,
   [Training time versus performance evidence.],
   table(
     columns: (2.4fr, 1fr, 1fr, 0.9fr, 1fr),
-    inset: (x: 3pt, y: 3.2pt),
+    inset: (x: 7pt, y: 5pt),
     align: (left + horizon, right + horizon, right + horizon, right + horizon, right + horizon),
     stroke: 0.35pt + luma(180),
+    fill: (x, y) => if y == 0 { luma(238) } else if calc.rem(y, 2) == 0 { luma(250) },
     table.header([Model], [Accuracy], [Macro F1], [Errors], [Time]),
     [Deep + Aug.], [1.0000], [1.0000], [0], [270.61s],
     [Deep + Aug. + Drop.], [0.9983], [0.9977], [4], [315.33s],
@@ -635,6 +714,7 @@ Training time also did not perfectly predict performance. Some slower variants w
     [Deep + Aug. + BN + Drop.], [0.9809], [0.9659], [46], [556.53s],
   ),
 )
+
 
 = Limitations
 
@@ -647,6 +727,7 @@ There are also experimental limits.
 
 
 Although these limitations do not invalidate the result, it's worth mentioning them as they define the scope.
+
 
 = Conclusion
 

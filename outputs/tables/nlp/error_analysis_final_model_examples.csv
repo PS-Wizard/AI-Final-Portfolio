@@ -1,0 +1,17 @@
+actual,predicted,confidence,text,clean_text
+offensive_language,hate_speech,0.9625,stfu redneck white trash head ass,stfu redneck white trash head as
+offensive_language,hate_speech,0.9608,"Their #1 insult. Even if it's self-deprecating. The first thing straights go to is faggot, queer, tranny, gay. Even supposed ""allies"".",insult self deprecating thing straight faggot queer tranny gay supposed ally
+offensive_language,hate_speech,0.9583,Every half-breed cop in America is trying to rape white women.,half breed cop america trying rape white woman
+offensive_language,hate_speech,0.9583,"RT @LipstickYoda: Call my son ""nigger"": even respectable white ppl will be uncomfortable w/ you. Call him ""thug"":you probably can get off w&#8230;",son nigger respectable white ppl uncomfortable thug probably
+offensive_language,hate_speech,0.9566,RT @Nekkohbk: Do dykes date other dykes or is that shit gay to y'all?,dyke date dyke shit gay
+offensive_language,hate_speech,0.9561,"@Marlon_N_Gaines I am brown, while you are black and ignorant, your stupidity makes me sick, typical thug looking nigger.",brown black ignorant stupidity make sick typical thug looking nigger
+offensive_language,hate_speech,0.9557,#faggots KILLED #jesuschrist&gt; HELLO!!!!!!!!!!!!!!!!!!!!!!!!! But whatever. Go ahead. #gaymarriage yourself into #Pharaoh's pockets&gt;,faggot killed jesuschrist hello ahead gaymarriage pharaoh pocket
+offensive_language,hate_speech,0.9544,"RT @BestVineFights: ""When you finally see the white kid that called you nigger on Call Of Duty"" &#128514;&#128557;&#128514; https://t.co/X59D4kMY7P",finally white kid called nigger duty
+hate_speech,offensive_language,0.9642,RT @jasminee_gamboa: hoes will be hoes .,hoe hoe
+hate_speech,offensive_language,0.9601,@TheErniie You're a little bitch.,little bitch
+hate_speech,offensive_language,0.9590,You&#8217;re a little bitch RT @FuckingCashBro: RT @Thotcho: my team got blown out in the Super Bowl,little bitch team got blown super bowl
+hate_speech,offensive_language,0.9564,Lmao let these hoes be hoes ain't no Savin nem,lmao let hoe hoe ai savin nem
+hate_speech,offensive_language,0.9317,"RT @Tyler_Weddle_23: &#8220;@Sexualgif: ""I hate that hoe already"" &#128514;&#128128; http://t.co/JzBcCsn75h&#8221; &#128514;&#128514;&#128514; this shit cracks me up!",hate hoe shit crack
+hate_speech,offensive_language,0.9299,First thing I do when I hit the lotto is buying @moniqueeedavis two fat bitches and watching her eat both in one sitting,thing hit lotto buying fat bitch watching eat sitting
+hate_speech,offensive_language,0.9298,All da lil bald headed bitches standn outside of kevin gates tryna get in &#128514;&#128514;&#128514;,da lil bald headed bitch standn outside kevin gate tryna
+hate_speech,offensive_language,0.9240,The fucking Royals bitch! Work!,fucking royal bitch work

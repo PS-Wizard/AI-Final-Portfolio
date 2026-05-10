@@ -1,0 +1,7 @@
+actual,predicted,count
+offensive_language,hate_speech,515
+offensive_language,neither,135
+hate_speech,offensive_language,56
+neither,hate_speech,38
+neither,offensive_language,25
+hate_speech,neither,24

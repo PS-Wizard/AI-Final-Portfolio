@@ -1,0 +1,3 @@
+Optimizer,Model,Test Accuracy,Macro F1,Test Loss,Misclassified Samples,Training Time (seconds),Epochs Trained
+Adam,Deeper CNN + Aug + BN + Dropout,0.9975103735923767,0.9962868310463723,0.007730178534984589,6,547.8947613239288,15
+SGD + Momentum,Deeper CNN + Aug + BN + Dropout,0.998755156993866,0.9981432080120787,0.005004463717341423,3,502.2138912677765,15
